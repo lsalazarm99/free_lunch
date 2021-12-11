@@ -8,7 +8,6 @@ return (new PhpCsFixer\Config())
             '@PHP81Migration' => true,
             '@PhpCsFixer' => true,
             'concat_space' => ['spacing' => 'one'],
-            'phpdoc_to_comment' => false,
             'yoda_style' => false,
         ]
     )
