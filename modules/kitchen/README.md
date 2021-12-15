@@ -35,7 +35,7 @@ In order to install the dependencies, you can run the following command:
 docker-compose exec app composer install
 ```
 
-The web server will be listening in the port 80.
+The web server will be listening in the port 8000.
 
 ## Debugging
 
