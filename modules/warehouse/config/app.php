@@ -172,6 +172,7 @@ return [
         App\Providers\AppServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        App\Providers\KitchenServiceProvider::class,
         App\Providers\FoodShopServiceProvider::class,
     ],
 

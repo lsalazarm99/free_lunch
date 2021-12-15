@@ -30,6 +30,11 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'kitchen' => [
+        'protocol' => env('KITCHEN_PROTOCOL'),
+        'domain' => env('KITCHEN_DOMAIN'),
+    ],
+
     'food_shop' => [
         'protocol' => env('FOOD_SHOP_PROTOCOL'),
         'domain' => env('FOOD_SHOP_DOMAIN'),
