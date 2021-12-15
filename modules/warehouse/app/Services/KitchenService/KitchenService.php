@@ -25,6 +25,6 @@ class KitchenService
      */
     public function deliverIngredients(Order $order): void
     {
-        $this->client->put("/order/deliverIngredients/{$order->id}")->throw();
+        $this->client->put("/order/deliver_ingredients/{$order->id}")->throw();
     }
 }
