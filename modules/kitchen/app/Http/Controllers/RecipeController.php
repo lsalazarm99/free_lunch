@@ -20,7 +20,7 @@ final class RecipeController extends Controller
         return RecipeResource::make($recipe);
     }
 
-    public function all(): AnonymousResourceCollection
+    public function showAll(): AnonymousResourceCollection
     {
         $recipes = Recipe::query()
             ->with('recipeIngredients.ingredient')

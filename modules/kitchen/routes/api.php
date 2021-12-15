@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('recipe')
     ->group(function () {
-        Route::get('all', [RecipeController::class, 'all']);
+        Route::get('all', [RecipeController::class, 'showAll']);
         Route::get('{recipeId}', [RecipeController::class, 'show']);
     })
 ;
@@ -18,6 +18,6 @@ Route::prefix('order')
 
         Route::post('random', [OrderController::class, 'createRandom']);
 
-        Route::put('deliverIngredients/{orderId}', [OrderController::class, 'deliverIngredients']);
+        Route::put('deliver_ingredients/{orderId}', [OrderController::class, 'deliverIngredients']);
     })
 ;

@@ -160,7 +160,7 @@ class OrderControllerTest extends TestCase
     public function testIngredientsAreDelivered(): void
     {
         $order = Order::where('is_in_process', '=', true)->firstOrFail();
-        $response = $this->putJson("/order/deliverIngredients/{$order->id}");
+        $response = $this->putJson("/order/deliver_ingredients/{$order->id}");
 
         $response->assertNoContent();
     }
@@ -168,7 +168,7 @@ class OrderControllerTest extends TestCase
     public function testOrderIsCompletedWhenIngredientsAreDelivered(): void
     {
         $order = Order::where('is_in_process', '=', true)->firstOrFail();
-        $this->putJson("/order/deliverIngredients/{$order->id}");
+        $this->putJson("/order/deliver_ingredients/{$order->id}");
 
         $this->assertNotSame($order->id, Order::where('is_in_process', '=', true)->firstOrFail()->id);
     }
@@ -178,7 +178,7 @@ class OrderControllerTest extends TestCase
         $order = Order::where('is_in_process', '=', true)->firstOrFail()->setAsCompleted();
         $order->save();
 
-        $this->putJson("/order/deliverIngredients/{$order->id}")
+        $this->putJson("/order/deliver_ingredients/{$order->id}")
             ->assertStatus(409)
         ;
     }
