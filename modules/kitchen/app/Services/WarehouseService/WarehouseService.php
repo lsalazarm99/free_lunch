@@ -59,11 +59,12 @@ class WarehouseService
 
         // At this point, we know that the order has all the data necessary to create the request.
 
-        $this->client->post('', [
+        $this->client->post('/order', [
             'order_id' => $order->id,
             'ingredients' => $order->recipe->recipeIngredients
-                ->mapWithKeys(fn (RecipeIngredient $recipeIngredient) => [
-                    $recipeIngredient->ingredient?->code => $recipeIngredient->ingredients_amount,
+                ->map(fn (RecipeIngredient $recipeIngredient): array => [
+                    'id' => $recipeIngredient->ingredient?->id,
+                    'amount' => $recipeIngredient->ingredients_amount,
                 ]),
         ])
             ->throw()
