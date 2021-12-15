@@ -1,66 +1,91 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# The kitchen
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This service takes care of the available recipes and its ingredients, the orders that have been requested and their
+status.
 
-## About Laravel
+## Endpoints
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- `GET /recipe/{id}` - Gets the recipe according to the indicated ID.
+- `GET /recipe/all` - Gets all the recipes.
+- `GET /order/{id}` - Gets the order according to the indicated ID.
+- `GET /order/search` - Get a paginated list of orders filtered according to the parameters provided. The following
+  parameters are available:
+    - `in_process` - An optional boolean value. It indicates that the order **could or could not be** in process.
+    - `completed` - An optional boolean value. It indicates that the order **could or could not be** completed.
+    - `cancelled` - An optional boolean value. It indicates that the order **could or could not be** cancelled.
+    - `recipe_id` - An optional integer value. It indicates that the order **should have** the indicated recipe.
+    - `max_items_number` - An optional integer value. It indicates the number of items of each page of the paginated
+      response. The minimum value is `1` and the maximum value is `15`.
+- `POST /order/random` - Creates an order with a random recipe.
+- `PUT /order/deliverIngredients/{id}` - Indicates that the required ingredients for the order with the indicated ID are
+  delivered.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Development
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+You can use Docker and Docker Compose in order to start the service, and also a database and a web server for it. To do
+that, run the following command:
 
-## Learning Laravel
+```bash
+docker-compose -f docker-compose.yaml -f docker-compose.development.yaml up -d
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+In order to install the dependencies, you can run the following command:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+docker-compose exec app composer install
+```
 
-## Laravel Sponsors
+The web server will be listening in the port 80.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## Debugging
 
-### Premium Partners
+If you used the `docker-compose.development.yaml` file, you will already have XDebug installed in you image. In order to
+configure it, you can use environment variables. Those variables could be placed in
+a `docker-compose.development.override.yaml` file, for example. Its content should be similar to this:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-- **[Romega Software](https://romegasoftware.com)**
+```yaml
+services:
+  app:
+    environment:
+      # Xdebug configuration.
+      # See https://xdebug.org/docs/all_settings.
+      XDEBUG_CONFIG: "client_host=host.docker.internal"
+      # Set this variable to "debug" in order to enable Xdebug debugging.
+      XDEBUG_MODE: "off"
+      XDEBUG_SESSION: "1"
+```
 
-## Contributing
+To instruct Docker Compose to use this file, you can run the following command:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+docker-compose -f docker-compose.yaml -f docker-compose.development.yaml -f docker-compose.development.override.yaml up -d
+```
 
-## Code of Conduct
+## Testing
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Run the following command in order to run the tests:
 
-## Security Vulnerabilities
+```bash
+docker-compose exec app php artisan test
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Applying Coding Standards
 
-## License
+Run the following command in order to run PHP CS Fixer in dry mode, so you can check for parts of the code that are not
+following the coding standards of the project:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+docker-compose exec app composer run-script php-cs-fixer:dry
+```
+
+If you want the tool to automatically fix them, you can use the following command:
+
+```bash
+docker-compose exec app composer run-script php-cs-fixer:fix
+```
+
+You can also check for PHPStan errors by running the following command:
+
+```bash
+docker-compose exec app composer run-script phpstan
+```
