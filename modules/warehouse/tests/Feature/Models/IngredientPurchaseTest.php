@@ -27,18 +27,12 @@ class IngredientPurchaseTest extends TestCase
 
     public function testCheckIfWasSuccessful(): void
     {
-        $ingredientPurchase = IngredientPurchase::query()
-            ->where('purchased_amount', '!=', 0)
-            ->firstOrFail()
-        ;
+        $ingredientPurchase = IngredientPurchase::firstOrFail();
 
+        $ingredientPurchase->purchased_amount = 1;
         $this->assertTrue($ingredientPurchase->wasSuccessful());
 
-        $ingredientPurchase = IngredientPurchase::query()
-            ->where('purchased_amount', '=', 0)
-            ->firstOrFail()
-        ;
-
+        $ingredientPurchase->purchased_amount = 0;
         $this->assertFalse($ingredientPurchase->wasSuccessful());
     }
 }
