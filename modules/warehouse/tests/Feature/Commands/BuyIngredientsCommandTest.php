@@ -24,10 +24,21 @@ class BuyIngredientsCommandTest extends TestCase
 
     protected bool $seed = false;
 
-    public function testProcessAllTheUndeliveredOrders(): void
+    public function testProcessOnlyUndeliveredOrders(): void
     {
         Http::fake(static fn () => Http::response(['quantitySold' => 5]));
-        $this->normalSeed();
+        Ingredient::factory()->count(12)->create();
+        Order::factory()
+            ->has(OrderIngredient::factory()->count(3))
+            ->count(5)
+            ->create()
+        ;
+        Order::factory()
+            ->has(OrderIngredient::factory()->count(3))
+            ->isDelivered()
+            ->count(5)
+            ->create()
+        ;
 
         $this->artisan(BuyIngredientsCommand::class)
             ->expectsOutput('Amount of orders that need to be processed: 5')
@@ -40,7 +51,7 @@ class BuyIngredientsCommandTest extends TestCase
         Order::factory()
             ->has(
                 OrderIngredient::factory()
-                    ->state(fn (array $attributes) => ['ingredient_id' => Ingredient::factory()->create()->id]),
+                    ->state(['ingredient_id' => Ingredient::factory()->create()->id]),
             )
             ->count(5)
             ->create()
@@ -72,7 +83,7 @@ class BuyIngredientsCommandTest extends TestCase
         Order::factory()
             ->has(
                 OrderIngredient::factory()
-                    ->state(fn (array $attributes) => ['ingredient_id' => Ingredient::factory()->create()->id]),
+                    ->state(['ingredient_id' => Ingredient::factory()->create()->id]),
             )
             ->count(5)
             ->create()
