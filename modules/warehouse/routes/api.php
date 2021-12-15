@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\IngredientController;
+use App\Http\Controllers\IngredientPurchaseController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,5 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('ingredient/all', [IngredientController::class, 'showAll']);
+
+Route::get('ingredient_purchase/search', [IngredientPurchaseController::class, 'search']);
 
 Route::post('order', [OrderController::class, 'storeOrder']);
