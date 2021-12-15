@@ -1,0 +1,15 @@
+services:
+  app:
+    build:
+      target: production
+    image: lsalazar/free_meal_warehouse
+    environment:
+      DB_HOST: "${DB_PORT:-database}"
+      DB_PORT: "${DB_PORT:-3306}"
+      DB_DATABASE: "${DB_DATABASE:-warehouse}"
+      DB_USERNAME: "${DB_USERNAME:-warehouse}"
+      DB_PASSWORD: "${DB_PASSWORD-password}"
+
+  web_server:
+    ports:
+      - "80:80"
