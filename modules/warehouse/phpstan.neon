@@ -3,7 +3,7 @@ parameters:
         - app
         - tests
     ignoreErrors:
-        - 'Cannot call method expectsOutput() on Illuminate\Testing\PendingCommand|int'
+        - '#Cannot call method [a-zA-Z]+\(\) on Illuminate\\Testing\\PendingCommand\|int#'
 
     level: 8
 
