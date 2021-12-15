@@ -51,7 +51,12 @@ class BuyIngredientsCommandTest extends TestCase
         Order::factory()
             ->has(
                 OrderIngredient::factory()
-                    ->state(['ingredient_id' => Ingredient::factory()->create()->id]),
+                    ->state(function ($attributes): array {
+                        /** @var Ingredient $ingredient */
+                        $ingredient = Ingredient::factory()->create();
+
+                        return ['ingredient_id' => $ingredient->id];
+                    }),
             )
             ->count(5)
             ->create()
@@ -83,7 +88,12 @@ class BuyIngredientsCommandTest extends TestCase
         Order::factory()
             ->has(
                 OrderIngredient::factory()
-                    ->state(['ingredient_id' => Ingredient::factory()->create()->id]),
+                    ->state(function ($attributes): array {
+                        /** @var Ingredient $ingredient */
+                        $ingredient = Ingredient::factory()->create();
+
+                        return ['ingredient_id' => $ingredient->id];
+                    }),
             )
             ->count(5)
             ->create()
