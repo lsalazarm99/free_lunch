@@ -23,7 +23,7 @@ final class RecipeResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
 
-            'recipeIngredients' => RecipeIngredientResource::collection($this->recipeIngredients),
+            'recipe_ingredients' => RecipeIngredientResource::collection($this->recipeIngredients),
         ];
     }
 }

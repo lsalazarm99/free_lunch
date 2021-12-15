@@ -33,7 +33,7 @@ class RecipeResourceTest extends TestCase
                     'description' => $recipe->description,
                 ],
             )
-            ->whereType('recipeIngredients', 'array')
+            ->whereType('recipe_ingredients', 'array')
         ;
     }
 }
