@@ -1,0 +1,9 @@
+parameters:
+    paths:
+        - app
+        - tests
+
+    level: 8
+
+    checkModelProperties: true
+    checkMissingIterableValueType: false
