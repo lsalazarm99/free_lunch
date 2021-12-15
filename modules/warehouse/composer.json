@@ -52,7 +52,7 @@
         ],
         "php-cs-fixer:fix": "php-cs-fixer fix --config=./.php-cs-fixer.dist.php",
         "php-cs-fixer:dry": "composer run-script php-cs-fixer:fix -- --dry-run --diff --using-cache=no",
-        "phpstan": "vendor/bin/phpstan analyse --configuration phpstan.neon --memory-limit=1G",
+        "phpstan": "vendor/bin/phpstan analyse --configuration phpstan.neon --memory-limit=1G"
     },
     "extra": {
         "laravel": {
