@@ -3,16 +3,12 @@ version: '3.8'
 services:
   app:
     build:
-      context: ./dockerfiles
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: dockerfiles/Dockerfile
       target: base
     depends_on:
       - database
     restart: unless-stopped
-    user: "${APP_UID:-1000}:${APP_GID:-1000}"
-    volumes:
-      - ./:/srv
-    working_dir: /srv
 
   web_server:
     image: library/nginx:1.21.4

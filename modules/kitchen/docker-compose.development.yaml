@@ -2,3 +2,10 @@ services:
   app:
     build:
       target: development
+    user: "${APP_UID:-1000}:${APP_GID:-1000}"
+    volumes:
+      - ./:/srv
+
+  web_server:
+    ports:
+      - "8000:80"
