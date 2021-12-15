@@ -30,4 +30,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'warehouse' => [
+        'protocol' => env('WAREHOUSE_PROTOCOL'),
+        'domain' => env('WAREHOUSE_DOMAIN'),
+    ],
+
 ];
