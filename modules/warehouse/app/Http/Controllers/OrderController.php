@@ -12,7 +12,9 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use RuntimeException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class OrderController extends Controller
 {
@@ -59,13 +61,21 @@ class OrderController extends Controller
 
         // Save the order and its ingredients inside a transaction so it can be rolled back if it fails.
 
-        DB::transaction(static function () use ($order, $orderIngredients): void {
-            $order->saveOrFail();
+        try {
+            DB::transaction(static function () use ($order, $orderIngredients): void {
+                if (!$order->save()) {
+                    throw new RuntimeException('The order could not be saved');
+                }
 
-            $orderIngredients->each(function (OrderIngredient $orderIngredient): void {
-                $orderIngredient->saveOrFail();
+                $orderIngredients->each(function (OrderIngredient $orderIngredient): void {
+                    if (!$orderIngredient->save()) {
+                        throw new RuntimeException('The order ingredient could not be saved');
+                    }
+                });
             });
-        });
+        } catch (RuntimeException $exception) {
+            throw new HttpException(500, 'The order could not be saved', $exception->getPrevious());
+        }
 
         $order->refresh()->load('orderIngredients.ingredient');
 
