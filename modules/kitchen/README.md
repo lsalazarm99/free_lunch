@@ -69,7 +69,7 @@ Run the following command in order to run the tests:
 docker-compose exec app php artisan test
 ```
 
-### Applying Coding Standards
+## Applying Coding Standards
 
 Run the following command in order to run PHP CS Fixer in dry mode, so you can check for parts of the code that are not
 following the coding standards of the project:
