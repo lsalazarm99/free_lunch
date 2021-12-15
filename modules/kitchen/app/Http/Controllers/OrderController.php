@@ -47,6 +47,7 @@ final class OrderController extends Controller
 
         $ordersQuery = Order::query()
             ->with('recipe.recipeIngredients.ingredient')
+            ->orderBy('created_at', 'desc')
             ->where(function (Builder $query) use ($request) {
                 if ($request->filled('in_process')) {
                     $query->orWhere('is_in_process', '=', $request->boolean('in_process'));
