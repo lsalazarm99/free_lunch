@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "29bc52d20ff5455b128b8e751cba6f3c",
+    "content-hash": "9e6100b29f84c8c84c9f1a4542ae203d",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -961,16 +961,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v8.76.1",
+            "version": "v8.76.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "83fe447ae964dc5f1f829d25fa2f6042d9099834"
+                "reference": "c67acfdc968f487b6235435080eef62a7e2ed055"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/83fe447ae964dc5f1f829d25fa2f6042d9099834",
-                "reference": "83fe447ae964dc5f1f829d25fa2f6042d9099834",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/c67acfdc968f487b6235435080eef62a7e2ed055",
+                "reference": "c67acfdc968f487b6235435080eef62a7e2ed055",
                 "shasum": ""
             },
             "require": {
@@ -1129,7 +1129,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2021-12-14T16:21:19+00:00"
+            "time": "2021-12-15T14:02:14+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -8050,12 +8050,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "92e217f7d613827eb7545586b3aafc616e878022"
+                "reference": "761f5c0e1fc7ee2f53e325692b596facbdd081a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/92e217f7d613827eb7545586b3aafc616e878022",
-                "reference": "92e217f7d613827eb7545586b3aafc616e878022",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/761f5c0e1fc7ee2f53e325692b596facbdd081a7",
+                "reference": "761f5c0e1fc7ee2f53e325692b596facbdd081a7",
                 "shasum": ""
             },
             "conflict": {
@@ -8325,7 +8325,7 @@
                 "stormpath/sdk": ">=0,<9.9.99",
                 "studio-42/elfinder": "<2.1.59",
                 "subrion/cms": "<=4.2.1",
-                "sulu/sulu": "<1.6.43|>=2,<2.0.10|>=2.1,<2.1.1",
+                "sulu/sulu": "= 2.4.0-RC1|<1.6.44|>=2,<2.2.18|>=2.3,<2.3.8",
                 "swiftmailer/swiftmailer": ">=4,<5.4.5",
                 "sylius/admin-bundle": ">=1,<1.0.17|>=1.1,<1.1.9|>=1.2,<1.2.2",
                 "sylius/grid": ">=1,<1.1.19|>=1.2,<1.2.18|>=1.3,<1.3.13|>=1.4,<1.4.5|>=1.5,<1.5.1",
@@ -8473,7 +8473,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-12-14T21:11:48+00:00"
+            "time": "2021-12-15T23:15:26+00:00"
         },
         {
             "name": "sebastian/cli-parser",
