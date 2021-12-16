@@ -139,9 +139,8 @@ services:
     restart: unless-stopped
     volumes:
       - ./dockerfiles/config/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-      - ./config/nginx/certs/domain.crt:/etc/ssl/certs/domain.crt
-      - ./config/nginx/certs/domain.key:/etc/ssl/certs/domain.key
-
+      - ./dockerfiles/config/nginx/certs/fullchain.pem:/etc/ssl/certs/domain/fullchain.pem
+      - ./dockerfiles/config/nginx/certs/privkey.pem:/etc/ssl/certs/domain/privkey.pem
 
 networks:
   kitchen:
