@@ -13,6 +13,26 @@ services:
       KITCHEN_DOMAIN: "${KITCHEN_DOMAIN:-kitchen}"
       FOOD_SHOP_PROTOCOL: "${FOOD_SHOP_PROTOCOL:-http}"
       FOOD_SHOP_DOMAIN: "${FOOD_SHOP_DOMAIN:-food-shop}"
+
+  app_scheduler:
+    build:
+      context: .
+      dockerfile: dockerfiles/Dockerfile
+      target: production
+    image: lsalazar/free_meal_warehouse
+    command: bash ./dockerfiles/config/app_scheduler/app_scheduler.sh
+    depends_on:
+      - database
+    environment:
+      DB_HOST: "${DB_PORT:-database}"
+      DB_PORT: "${DB_PORT:-3306}"
+      DB_DATABASE: "${DB_DATABASE:-warehouse}"
+      DB_USERNAME: "${DB_USERNAME:-warehouse}"
+      DB_PASSWORD: "${DB_PASSWORD-password}"
+      KITCHEN_PROTOCOL: "${KITCHEN_PROTOCOL:-http}"
+      KITCHEN_DOMAIN: "${KITCHEN_DOMAIN:-kitchen}"
+      FOOD_SHOP_PROTOCOL: "${FOOD_SHOP_PROTOCOL:-http}"
+      FOOD_SHOP_DOMAIN: "${FOOD_SHOP_DOMAIN:-food-shop}"
     restart: unless-stopped
 
   web_server:
