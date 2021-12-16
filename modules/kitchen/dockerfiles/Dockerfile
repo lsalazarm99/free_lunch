@@ -54,5 +54,4 @@ ENV APP_DEBUG="false"
 ENV LOG_LEVEL="error"
 #
 # Generate the cache for the application.
-RUN php artisan config:cache
 RUN php artisan route:cache
