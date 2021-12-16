@@ -2,6 +2,9 @@ FROM library/php:8.1.0-fpm AS base
 #
 WORKDIR /srv/
 #
+# Expose the PHP FPM port.
+EXPOSE 9000
+#
 # Get php-extension-installer in order to simplify the installation process of PHP extensions.
 # See https://github.com/mlocati/docker-php-extension-installer.
 COPY --from=mlocati/php-extension-installer:1.4.6 /usr/bin/install-php-extensions /usr/local/bin/
@@ -53,6 +56,3 @@ ENV LOG_LEVEL="error"
 # Generate the cache for the application.
 RUN php artisan config:cache
 RUN php artisan route:cache
-#
-# Expose the PHP FPM port.
-EXPOSE 9000
