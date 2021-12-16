@@ -101,13 +101,13 @@ class ProcessOrdersCommand extends Command
                 return;
             }
 
-            $this->newLine();
             $this->info('All the required ingredients are available for the current order');
 
             try {
                 DB::transaction(function () use ($kitchenService, $order): void {
+                    $this->newLine();
+
                     $order->orderIngredients->each(function (OrderIngredient $orderIngredient): void {
-                        $this->newLine();
                         $this->info(
                             'Updating the available amount of the following ingredient: '
                             . "{$orderIngredient->ingredient?->name} ({$orderIngredient->ingredient?->id})",
@@ -130,7 +130,6 @@ class ProcessOrdersCommand extends Command
                         }
                     });
 
-                    $this->newLine();
                     $this->info('Updating the status of the order');
 
                     // Update the order.
@@ -151,10 +150,10 @@ class ProcessOrdersCommand extends Command
                     }
                 });
             } catch (RuntimeException|RequestException) {
-                $this->warn('Reverting changes...');
+                $this->warn('The changes were reverted');
             }
 
-            if ($order->is_delivered) {
+            if ($order->refresh()->is_delivered) {
                 $this->info('The order was delivered and the ingredients were consumed');
             }
 
