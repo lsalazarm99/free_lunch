@@ -10,6 +10,7 @@ services:
     depends_on:
       - kitchen_database
     environment:
+      APP_URL: "${KITCHEN_APP_URL:-https://kitchen}"
       DB_HOST: "${KITCHEN_DB_HOST:-database}"
       DB_PORT: "${KITCHEN_DB_PORT:-3306}"
       DB_DATABASE: "${KITCHEN_DB_DATABASE:-kitchen}"
@@ -59,6 +60,7 @@ services:
     depends_on:
       - warehouse_database
     environment:
+      APP_URL: "${WAREHOUSE_APP_URL:-https://warehouse}"
       DB_HOST: "${WAREHOUSE_DB_HOST:-database}"
       DB_PORT: "${WAREHOUSE_DB_PORT:-3306}"
       DB_DATABASE: "${WAREHOUSE_DB_DATABASE:-warehouse}"
@@ -83,6 +85,7 @@ services:
     depends_on:
       - warehouse_database
     environment:
+      APP_URL: "${WAREHOUSE_APP_URL:-https://warehouse}"
       DB_HOST: "${WAREHOUSE_DB_HOST:-database}"
       DB_PORT: "${WAREHOUSE_DB_PORT:-3306}"
       DB_DATABASE: "${WAREHOUSE_DB_DATABASE:-warehouse}"
