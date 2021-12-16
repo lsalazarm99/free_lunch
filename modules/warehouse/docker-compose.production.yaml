@@ -18,9 +18,8 @@ services:
     build:
       context: .
       dockerfile: dockerfiles/Dockerfile
-      target: production
-    image: lsalazar/free_meal_warehouse
-    command: bash ./dockerfiles/config/app_scheduler/app_scheduler.sh
+      target: app_scheduler
+    image: lsalazar/free_meal_warehouse_app_scheduler
     depends_on:
       - database
     environment:
