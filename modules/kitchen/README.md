@@ -17,8 +17,16 @@ status.
     - `max_items_number` - An optional integer value. It indicates the number of items of each page of the paginated
       response. The minimum value is `1` and the maximum value is `15`.
 - `POST /order/random` - Creates an order with a random recipe.
-- `PUT /order/deliver_ingredients/{id}` - Indicates that the required ingredients for the order with the indicated 
-  ID are delivered.
+- `PUT /order/deliver_ingredients/{id}` - Indicates that the required ingredients for the order with the indicated ID
+  are delivered.
+
+## Building
+
+You can build the Docker image of the service by running the following command:
+
+```bash
+docker build -f dockerfiles/Dockerfile --tag lsalazar/free_lunch_kitchen --target production .
+```
 
 ## Development
 
