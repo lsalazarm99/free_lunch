@@ -5,11 +5,11 @@ This service takes care of the available amount of ingredients, the orders that 
 ## Endpoints
 
 - `GET /ingredient/all` - Gets all the ingredients.
-- `GET /ingredient_purchase/search` - Get a paginated list of ingredient purchases filtered according to the parameters 
+- `GET /ingredient_purchase/search` - Get a paginated list of ingredient purchases filtered according to the parameters
   provided. The following parameters are available:
-    - `ingredient_id` - An optional integer value. It indicates that the ingredient purchase **should have** the 
+    - `ingredient_id` - An optional integer value. It indicates that the ingredient purchase **should have** the
       indicated ingredient.
-    - `date_from` - An optional string value. It should be a valid string date. It indicates that the ingredient 
+    - `date_from` - An optional string value. It should be a valid string date. It indicates that the ingredient
       purchase **should have been** created after the indicated date.
     - `date_to` - An optional string value. It should be a valid string date. It indicates that the ingredient
       purchase **should have been** created before the indicated date.
@@ -25,6 +25,16 @@ This service takes care of the available amount of ingredients, the orders that 
 
 - `warehouse:buy-ingredients` - Buy required ingredients from the food shop.
 - `warehouse:process-orders` - Process the undelivered orders and deliver them if possible.
+
+## Building
+
+The service requires 2 images: one for the service itself, and other for the app scheduler. You can build the Docker
+images by running the following commands:
+
+```bash
+docker build -f dockerfiles/Dockerfile --tag lsalazar/free_lunch_warehouse --target production .
+docker build -f dockerfiles/Dockerfile --tag lsalazar/free_lunch_warehouse_app_scheduler --target app_scheduler .
+```
 
 ## Development
 
