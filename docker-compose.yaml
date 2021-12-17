@@ -112,12 +112,16 @@ services:
     volumes:
       - warehouse_database_data:/var/lib/mysql
 
-  web_server:
+  frontend:
     build:
       context: modules/frontend
       dockerfile: dockerfiles/Dockerfile
       target: production
     image: lsalazar/free_meal_frontend
+    restart: unless-stopped
+
+  web_server:
+    image: library/nginx:1.21.4
     depends_on:
       - kitchen_web_server
       - warehouse_web_server
