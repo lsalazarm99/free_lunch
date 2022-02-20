@@ -8,6 +8,9 @@ use App\Models\Order;
 use App\Models\Recipe;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * @extends Factory<Order>
+ */
 final class OrderFactory extends Factory
 {
     protected $model = Order::class;
@@ -19,6 +22,9 @@ final class OrderFactory extends Factory
         ];
     }
 
+    /**
+     * @return Factory<Order>
+     */
     public function inProcess(): Factory
     {
         return $this->state(fn (array $attributes) => [
@@ -28,6 +34,9 @@ final class OrderFactory extends Factory
         ]);
     }
 
+    /**
+     * @return Factory<Order>
+     */
     public function completed(): Factory
     {
         return $this->state(fn (array $attributes) => [
@@ -37,6 +46,9 @@ final class OrderFactory extends Factory
         ]);
     }
 
+    /**
+     * @return Factory<Order>
+     */
     public function cancelled(): Factory
     {
         return $this->state(fn (array $attributes) => [

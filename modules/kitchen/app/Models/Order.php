@@ -12,12 +12,16 @@ final class Order extends Model
 {
     use HasFactory;
 
+    /** @var array<string, mixed> */
     protected $casts = [
         'is_in_process' => 'boolean',
         'is_completed' => 'boolean',
         'is_cancelled' => 'boolean',
     ];
 
+    /**
+     * @return BelongsTo<Recipe, self>
+     */
     public function recipe(): BelongsTo
     {
         return $this->belongsTo(Recipe::class, 'recipe_id', 'id');

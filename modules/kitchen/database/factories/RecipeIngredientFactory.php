@@ -9,6 +9,9 @@ use App\Models\Recipe;
 use App\Models\RecipeIngredient;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * @extends Factory<RecipeIngredient>
+ */
 final class RecipeIngredientFactory extends Factory
 {
     protected $model = RecipeIngredient::class;

@@ -33,6 +33,9 @@ final class OrderController extends Controller
         return OrderResource::make($order);
     }
 
+    /**
+     * @return AnonymousResourceCollection<OrderResource>
+     */
     public function search(Request $request): AnonymousResourceCollection
     {
         $request->validate(

@@ -13,6 +13,8 @@ final class IngredientResource extends JsonResource
 {
     /**
      * @param Request $request
+     *
+     * @return array<string, mixed>
      */
     public function toArray($request): array
     {

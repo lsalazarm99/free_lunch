@@ -12,6 +12,9 @@ final class Ingredient extends Model
 {
     use HasFactory;
 
+    /**
+     * @return HasMany<RecipeIngredient>
+     */
     public function recipeIngredient(): HasMany
     {
         return $this->hasMany(RecipeIngredient::class, 'ingredient_id', 'id');

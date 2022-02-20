@@ -7,6 +7,9 @@ namespace Database\Factories;
 use App\Models\Ingredient;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * @extends Factory<Ingredient>
+ */
 final class IngredientFactory extends Factory
 {
     protected $model = Ingredient::class;

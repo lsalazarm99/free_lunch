@@ -12,11 +12,17 @@ final class Recipe extends Model
 {
     use HasFactory;
 
+    /**
+     * @return HasMany<RecipeIngredient>
+     */
     public function recipeIngredients(): HasMany
     {
         return $this->hasMany(RecipeIngredient::class, 'recipe_id', 'id');
     }
 
+    /**
+     * @return HasMany<Order>
+     */
     public function recipeOrders(): HasMany
     {
         return $this->hasMany(Order::class, 'recipe_id', 'id');
