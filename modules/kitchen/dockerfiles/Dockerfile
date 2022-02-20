@@ -1,4 +1,4 @@
-FROM library/php:8.1.0-fpm AS base
+FROM library/php:8.1.3-fpm AS base
 #
 WORKDIR /srv/
 #
@@ -7,7 +7,7 @@ EXPOSE 9000
 #
 # Get php-extension-installer in order to simplify the installation process of PHP extensions.
 # See https://github.com/mlocati/docker-php-extension-installer.
-COPY --from=mlocati/php-extension-installer:1.4.6 /usr/bin/install-php-extensions /usr/local/bin/
+COPY --from=mlocati/php-extension-installer:1.4.16 /usr/bin/install-php-extensions /usr/local/bin/
 #
 # Install PHP extensions required by Laravel that are not pre-installed.
 # See https://laravel.com/docs/8.x/deployment#server-requirements.
@@ -18,7 +18,7 @@ RUN install-php-extensions bcmath
 RUN install-php-extensions pdo_mysql
 #
 # Get Composer in order to install the Composer dependencies.
-COPY --from=library/composer:2.1.14 /usr/bin/composer /usr/bin/composer
+COPY --from=library/composer:2.2.6 /usr/bin/composer /usr/bin/composer
 #
 # Install packages required by composer.
 RUN apt-get update && apt-get install -y zip
