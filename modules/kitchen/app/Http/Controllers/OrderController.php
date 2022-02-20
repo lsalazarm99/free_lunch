@@ -122,7 +122,7 @@ final class OrderController extends Controller
 
     public function deliverIngredients(int $orderId, ResponseFactory $response): Response
     {
-        $order = Order::findOrFail($orderId);
+        $order = Order::query()->findOrFail($orderId);
 
         if (!$order->is_in_process) {
             throw new ConflictHttpException('The order is not in process.');
