@@ -6,6 +6,7 @@ namespace App\Providers;
 
 use App\Services\WarehouseService\WarehouseService;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 
 final class WarehouseServiceProvider extends ServiceProvider
@@ -15,8 +16,8 @@ final class WarehouseServiceProvider extends ServiceProvider
         App::singleton(
             WarehouseService::class,
             static fn () => new WarehouseService(
-                config('services.warehouse.domain'),
-                config('services.warehouse.protocol'),
+                Config::get('services.warehouse.domain'),
+                Config::get('services.warehouse.protocol'),
             ),
         );
     }
