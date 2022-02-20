@@ -28,7 +28,7 @@ class OrderControllerTest extends TestCase
         $response = $this->get("/order/{$order->id}");
 
         $response
-            ->assertStatus(200)
+            ->assertOk()
             ->assertJson(['id' => $order->id], true)
         ;
     }
