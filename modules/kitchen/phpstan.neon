@@ -1,9 +1,9 @@
 parameters:
     paths:
         - app
+        - database
         - tests
 
     level: 8
 
     checkModelProperties: true
-    checkMissingIterableValueType: false
