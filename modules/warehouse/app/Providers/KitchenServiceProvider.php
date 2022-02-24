@@ -6,6 +6,7 @@ namespace App\Providers;
 
 use App\Services\KitchenService\KitchenService;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 
 final class KitchenServiceProvider extends ServiceProvider
@@ -15,8 +16,8 @@ final class KitchenServiceProvider extends ServiceProvider
         App::singleton(
             KitchenService::class,
             static fn () => new KitchenService(
-                config('services.kitchen.domain'),
-                config('services.kitchen.protocol'),
+                Config::get('services.kitchen.domain'),
+                Config::get('services.kitchen.protocol'),
             ),
         );
     }
