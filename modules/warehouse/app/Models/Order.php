@@ -12,10 +12,14 @@ final class Order extends Model
 {
     use HasFactory;
 
+    /** @var array<string, mixed> */
     protected $casts = [
         'is_delivered' => 'boolean',
     ];
 
+    /**
+     * @return HasMany<OrderIngredient>
+     */
     public function orderIngredients(): HasMany
     {
         return $this->hasMany(OrderIngredient::class, 'order_id', 'id');

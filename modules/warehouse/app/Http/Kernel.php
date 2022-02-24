@@ -8,6 +8,7 @@ use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
 {
+    /** @var string[] */
     protected $middleware = [
         \App\Http\Middleware\JsonMiddleware::class,
         \App\Http\Middleware\TrustProxies::class,

@@ -14,6 +14,9 @@ use Illuminate\Validation\Rule;
 
 class IngredientPurchaseController extends Controller
 {
+    /**
+     * @return AnonymousResourceCollection<IngredientPurchaseResource>
+     */
     public function search(Request $request): AnonymousResourceCollection
     {
         $request->validate(

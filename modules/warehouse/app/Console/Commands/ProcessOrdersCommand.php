@@ -21,9 +21,10 @@ class ProcessOrdersCommand extends Command
     protected $signature = 'warehouse:process-orders';
     protected $description = 'Process the undelivered orders and deliver them if possible';
 
-    /** @var EloquentCollection<Ingredient> */
+    /** @var EloquentCollection<int, Ingredient> */
     private EloquentCollection $ingredients;
-    /** @var EloquentCollection<Ingredient> */
+
+    /** @var EloquentCollection<int, Ingredient> */
     private EloquentCollection $reservedIngredients;
 
     public function __construct()
@@ -168,21 +169,25 @@ class ProcessOrdersCommand extends Command
         return $this->ingredients->first(fn (Ingredient $ingredient) => $ingredient->id === $ingredientId);
     }
 
+    /**
+     * @param Collection<int, Order> $orders
+     */
     private function setIngredientsFromOrders(Collection $orders): void
     {
-        /** @var Collection<OrderIngredient> $orderIngredients */
+        /** @var Collection<int, OrderIngredient> $orderIngredients */
         $orderIngredients = $orders
             ->map((static fn (Order $order): Collection => $order->orderIngredients))
             ->flatten(1)
         ;
 
-        /** @var Collection<Ingredient> $ingredients */
+        /** @var Collection<int, Ingredient> $ingredients */
         $ingredients = $orderIngredients
             ->map(fn (OrderIngredient $orderIngredient): ?Ingredient => $orderIngredient->ingredient)
             ->reject(fn (?Ingredient $ingredient): bool => $ingredient === null)
-            // When the ingredients are purchased, the same ingredient will be purchased only once.
-            ->unique(fn (Ingredient $ingredient): int => $ingredient->id)
         ;
+
+        // When the ingredients are purchased, the same ingredient will be purchased only once.
+        $ingredients->unique(fn (Ingredient $ingredient): int => $ingredient->id);
 
         $this->ingredients = EloquentCollection::empty();
 

@@ -10,6 +10,9 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class IngredientController extends Controller
 {
+    /**
+     * @return AnonymousResourceCollection<IngredientResource>
+     */
     public function showAll(): AnonymousResourceCollection
     {
         $ingredients = Ingredient::all();

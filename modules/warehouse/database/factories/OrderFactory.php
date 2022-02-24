@@ -7,6 +7,9 @@ namespace Database\Factories;
 use App\Models\Order;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * @extends Factory<Order>
+ */
 final class OrderFactory extends Factory
 {
     protected $model = Order::class;
@@ -16,6 +19,9 @@ final class OrderFactory extends Factory
         return [];
     }
 
+    /**
+     * @return Factory<Order>
+     */
     public function isDelivered(): Factory
     {
         return $this->state(fn (array $attributes) => [
@@ -23,6 +29,9 @@ final class OrderFactory extends Factory
         ]);
     }
 
+    /**
+     * @return Factory<Order>
+     */
     public function isNotDelivered(): Factory
     {
         return $this->state(fn (array $attributes) => [

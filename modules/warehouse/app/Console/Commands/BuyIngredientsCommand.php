@@ -36,17 +36,20 @@ class BuyIngredientsCommand extends Command
 
         $this->info("Amount of orders that need to be processed: {$orders->count()}");
 
-        /** @var Collection<OrderIngredient> $orderIngredients */
+        /** @var Collection<int, OrderIngredient> $orderIngredients */
         $orderIngredients = $orders
             ->map((static fn (Order $order): Collection => $order->orderIngredients))
             ->flatten(1)
         ;
 
-        /** @var Collection<Ingredient> $ingredients */
+        /** @var Collection<int, Ingredient> $ingredients */
         $ingredients = $orderIngredients
             ->map(fn (OrderIngredient $orderIngredient): ?Ingredient => $orderIngredient->ingredient)
             ->reject(fn (?Ingredient $ingredient): bool => $ingredient === null)
-            // When the ingredients are purchased, the same ingredient will be purchased only once.
+        ;
+
+        // When the ingredients are purchased, an ingredient will be purchased only once.
+        $ingredients = $ingredients
             ->unique(fn (Ingredient $ingredient): int => $ingredient->id)
             ->sortBy(fn (Ingredient $ingredient): int => $ingredient->id)
         ;

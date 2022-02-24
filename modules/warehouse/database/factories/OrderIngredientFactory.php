@@ -9,6 +9,9 @@ use App\Models\Order;
 use App\Models\OrderIngredient;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * @extends Factory<OrderIngredient>
+ */
 final class OrderIngredientFactory extends Factory
 {
     protected $model = OrderIngredient::class;
