@@ -145,7 +145,7 @@ class ProcessOrdersCommandTest extends TestCase
 
         $this->artisan(ProcessOrdersCommand::class)
             ->expectsOutput('The order could no be delivered')
-            ->expectsOutput('Reverting changes...')
+            ->expectsOutput('The changes were reverted')
         ;
 
         Order::all()->each(function (Order $order) {
