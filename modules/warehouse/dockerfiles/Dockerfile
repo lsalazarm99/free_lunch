@@ -2,9 +2,6 @@ FROM library/php:8.1.3-fpm AS base
 #
 WORKDIR /srv/
 #
-# Expose the PHP FPM port.
-EXPOSE 9000
-#
 # Get php-extension-installer in order to simplify the installation process of PHP extensions.
 # See https://github.com/mlocati/docker-php-extension-installer.
 COPY --from=mlocati/php-extension-installer:1.4.16 /usr/bin/install-php-extensions /usr/local/bin/
