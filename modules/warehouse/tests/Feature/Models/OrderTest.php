@@ -14,7 +14,7 @@ use Tests\TestCase;
  *
  * @internal
  */
-class OrderTest extends TestCase
+final class OrderTest extends TestCase
 {
     use RefreshDatabase;
 

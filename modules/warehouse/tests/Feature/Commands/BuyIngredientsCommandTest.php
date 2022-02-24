@@ -18,7 +18,7 @@ use Tests\TestCase;
  *
  * @internal
  */
-class BuyIngredientsCommandTest extends TestCase
+final class BuyIngredientsCommandTest extends TestCase
 {
     use RefreshDatabase;
 

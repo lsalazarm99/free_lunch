@@ -16,7 +16,7 @@ use RuntimeException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class OrderController extends Controller
+final class OrderController extends Controller
 {
     public function storeOrder(Request $request): OrderResource
     {

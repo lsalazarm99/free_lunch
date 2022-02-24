@@ -13,7 +13,7 @@ use Tests\TestCase;
  *
  * @internal
  */
-class JsonMiddlewareTest extends TestCase
+final class JsonMiddlewareTest extends TestCase
 {
     public function testHeaderIsSet(): void
     {

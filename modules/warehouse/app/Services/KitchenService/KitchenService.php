@@ -9,7 +9,7 @@ use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 
-class KitchenService
+final class KitchenService
 {
     public PendingRequest $client;
 

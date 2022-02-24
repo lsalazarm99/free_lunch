@@ -17,7 +17,7 @@ use Tests\TestCase;
  *
  * @internal
  */
-class ProcessOrdersCommandTest extends TestCase
+final class ProcessOrdersCommandTest extends TestCase
 {
     use RefreshDatabase;
 

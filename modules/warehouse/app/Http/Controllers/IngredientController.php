@@ -8,7 +8,7 @@ use App\Http\Resources\IngredientResource;
 use App\Models\Ingredient;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
-class IngredientController extends Controller
+final class IngredientController extends Controller
 {
     /**
      * @return AnonymousResourceCollection<IngredientResource>

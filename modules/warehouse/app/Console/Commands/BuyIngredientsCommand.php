@@ -15,7 +15,7 @@ use Illuminate\Support\Collection;
 use RuntimeException;
 use Throwable;
 
-class BuyIngredientsCommand extends Command
+final class BuyIngredientsCommand extends Command
 {
     protected $signature = 'warehouse:buy-ingredients';
     protected $description = 'Buy required ingredients from the food shop';

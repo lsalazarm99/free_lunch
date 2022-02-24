@@ -16,7 +16,7 @@ use Tests\TestCase;
  *
  * @internal
  */
-class IngredientPurchaseResourceTest extends TestCase
+final class IngredientPurchaseResourceTest extends TestCase
 {
     use RefreshDatabase;
 

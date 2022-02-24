@@ -16,7 +16,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use RuntimeException;
 
-class ProcessOrdersCommand extends Command
+final class ProcessOrdersCommand extends Command
 {
     protected $signature = 'warehouse:process-orders';
     protected $description = 'Process the undelivered orders and deliver them if possible';

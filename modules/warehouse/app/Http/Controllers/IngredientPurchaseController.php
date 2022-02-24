@@ -12,7 +12,7 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
 
-class IngredientPurchaseController extends Controller
+final class IngredientPurchaseController extends Controller
 {
     /**
      * @return AnonymousResourceCollection<IngredientPurchaseResource>

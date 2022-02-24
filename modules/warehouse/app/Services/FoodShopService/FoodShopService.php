@@ -10,7 +10,7 @@ use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use RuntimeException;
 
-class FoodShopService
+final class FoodShopService
 {
     public PendingRequest $client;
 
