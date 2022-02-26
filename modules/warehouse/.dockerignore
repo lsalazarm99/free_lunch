@@ -10,6 +10,6 @@ storage/logs/*
 
 .gitattributes
 .gitignore
-.php-cs-fixer.dist.php
+.php-cs-fixer.cache
 .phpunit.result.cache
 README.md
