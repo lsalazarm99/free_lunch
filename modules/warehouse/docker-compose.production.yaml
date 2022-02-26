@@ -2,7 +2,7 @@ services:
   app:
     build:
       target: production
-    image: lsalazar/free_meal_warehouse
+    image: lsalazar/free_lunch_warehouse
     environment:
       DB_HOST: "${DB_HOST:-database}"
       DB_PORT: "${DB_PORT:-3306}"
