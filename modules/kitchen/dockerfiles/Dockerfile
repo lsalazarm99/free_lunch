@@ -53,6 +53,17 @@ FROM base AS production
 # Use the default production configuration.
 RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
 #
+# Enable PHP FPM status page.
+RUN echo "pm.status_path = /status" >> /usr/local/etc/php-fpm.d/zz-docker.conf
+#
+# Add a PHP FPM health checker.
+RUN curl -o /usr/local/bin/php-fpm-healthcheck \
+    https://raw.githubusercontent.com/renatomefi/php-fpm-healthcheck/master/php-fpm-healthcheck \
+    && chmod +x /usr/local/bin/php-fpm-healthcheck
+#
+# Setup a health checker.
+HEALTHCHECK --interval=5s --timeout=1s CMD php-fpm-healthcheck || exit 1
+#
 # Add the project files to the image.
 COPY ./ /srv/
 #
