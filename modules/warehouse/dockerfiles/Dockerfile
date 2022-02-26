@@ -14,6 +14,10 @@ RUN install-php-extensions bcmath
 # Install aditional PHP extensions required by the project.
 RUN install-php-extensions pdo_mysql
 #
+#-----------------------------------------------------------------------------------------------------------------------
+#
+FROM base as composer
+#
 # Get Composer in order to install the Composer dependencies.
 COPY --from=library/composer:2.2.6 /usr/bin/composer /usr/bin/composer
 #
@@ -22,7 +26,7 @@ RUN apt-get update && apt-get install -y zip
 #
 #-----------------------------------------------------------------------------------------------------------------------
 #
-FROM base as development
+FROM composer as development
 #
 # Install XDebug's PHP extensions in order to debug the PHP code.
 # You can configure it using environment variables.
@@ -34,6 +38,16 @@ RUN mv $PHP_INI_DIR/php.ini-development $PHP_INI_DIR/php.ini
 #
 #-----------------------------------------------------------------------------------------------------------------------
 #
+FROM composer AS composer_dependencies
+#
+# Add the project files to the image.
+COPY ./ /srv/
+#
+# Install the Composer dependencies.
+RUN composer install --optimize-autoloader --no-dev
+#
+#-----------------------------------------------------------------------------------------------------------------------
+#
 FROM base AS production
 #
 # Use the default production configuration.
@@ -42,8 +56,8 @@ RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
 # Add the project files to the image.
 COPY ./ /srv/
 #
-# Install the Composer dependencies.
-RUN composer install --optimize-autoloader --no-dev
+# Add the Composer dependencies to the image.
+COPY --from=composer_dependencies /srv/vendor/ /srv/vendor/
 #
 # Set some environment variables for production usage of the application.
 ENV APP_ENV="production"
