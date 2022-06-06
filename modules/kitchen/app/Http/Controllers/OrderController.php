@@ -25,7 +25,8 @@ final class OrderController extends Controller
     {
         $order = Order::query()
             ->with('recipe.recipeIngredients.ingredient')
-            ->findOrFail($orderId)
+            ->whereKey($orderId)
+            ->firstOrFail()
         ;
 
         return OrderResource::make($order);
@@ -128,7 +129,10 @@ final class OrderController extends Controller
 
     public function deliverIngredients(int $orderId, ResponseFactory $response): Response
     {
-        $order = Order::query()->findOrFail($orderId);
+        $order = Order::query()
+            ->whereKey($orderId)
+            ->firstOrFail()
+        ;
 
         if (!$order->is_in_process) {
             throw new HttpException(

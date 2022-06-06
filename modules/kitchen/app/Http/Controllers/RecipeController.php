@@ -14,7 +14,8 @@ final class RecipeController extends Controller
     {
         $recipe = Recipe::query()
             ->with('recipeIngredients.ingredient')
-            ->findOrFail($recipeId)
+            ->whereKey($recipeId)
+            ->firstOrFail()
         ;
 
         return RecipeResource::make($recipe);
