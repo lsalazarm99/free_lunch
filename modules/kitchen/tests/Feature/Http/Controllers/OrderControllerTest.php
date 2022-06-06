@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Services\WarehouseService\WarehouseService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Http;
 use Mockery\MockInterface;
 use RuntimeException;
@@ -89,18 +90,18 @@ final class OrderControllerTest extends TestCase
     public function testGet422WhenSearchOrdersAndTheAmountOfItemsIsOutsideTheLimits(): void
     {
         $this->get('/order/search?max_items_number=16')
-            ->assertStatus(422)
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
         ;
 
         $this->get('/order/search?max_items_number=0')
-            ->assertStatus(422)
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
         ;
     }
 
     public function testGet422WhenSearchResourcesWithARecipeThatDoesNotExist(): void
     {
         $this->get('/order/search?recipe_id=10000')
-            ->assertStatus(422)
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
         ;
     }
 
@@ -115,7 +116,7 @@ final class OrderControllerTest extends TestCase
 
         $response = $this->post('/order/random');
 
-        $response->assertStatus(201);
+        $response->assertStatus(Response::HTTP_CREATED);
         $this->assertNotNull($response->json('id'));
     }
 
@@ -132,7 +133,7 @@ final class OrderControllerTest extends TestCase
 
         $response = $this->post('/order/random');
 
-        $response->assertStatus(500);
+        $response->assertStatus(Response::HTTP_INTERNAL_SERVER_ERROR);
 
         $this->mock(
             WarehouseService::class,
@@ -145,7 +146,7 @@ final class OrderControllerTest extends TestCase
 
         $response = $this->post('/order/random');
 
-        $response->assertStatus(500);
+        $response->assertStatus(Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
     public function testCreateRandomOrderFailsBecauseOfNetworkIssues(): void
@@ -153,7 +154,7 @@ final class OrderControllerTest extends TestCase
         Http::fake(static fn () => Http::response(null, 400));
 
         $this->post('/order/random')
-            ->assertStatus(500)
+            ->assertStatus(Response::HTTP_INTERNAL_SERVER_ERROR)
         ;
     }
 
@@ -179,7 +180,7 @@ final class OrderControllerTest extends TestCase
         $order->save();
 
         $this->putJson("/order/deliver_ingredients/{$order->id}")
-            ->assertStatus(409)
+            ->assertStatus(Response::HTTP_CONFLICT)
         ;
     }
 }

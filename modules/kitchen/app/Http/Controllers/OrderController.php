@@ -16,8 +16,6 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Routing\ResponseFactory;
 use Illuminate\Validation\Rule;
-use RuntimeException;
-use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
 
@@ -97,7 +95,11 @@ final class OrderController extends Controller
         try {
             $order->saveOrFail();
         } catch (Throwable $e) {
-            throw new HttpException(500, 'The order could not be generated.', $e->getPrevious());
+            throw new HttpException(
+                Response::HTTP_INTERNAL_SERVER_ERROR,
+                'The order could not be generated.',
+                $e->getPrevious(),
+            );
         }
 
         try {
@@ -106,7 +108,7 @@ final class OrderController extends Controller
             $order->setAsCancelled();
 
             throw new HttpException(
-                500,
+                Response::HTTP_INTERNAL_SERVER_ERROR,
                 "An attempt was made to generate the order with the recipe \"{$recipe->name}\" with ID {$recipe->id}"
                 . " but it seems that the recipe is incomplete or one of its ingredients doesn't exist.",
                 $e->getPrevious(),
@@ -114,7 +116,11 @@ final class OrderController extends Controller
         } catch (RequestException $e) {
             $order->setAsCancelled();
 
-            throw new HttpException(500, 'The order could not be generated.', $e->getPrevious());
+            throw new HttpException(
+                Response::HTTP_INTERNAL_SERVER_ERROR,
+                'The order could not be generated.',
+                $e->getPrevious(),
+            );
         }
 
         return OrderResource::make($order);
@@ -125,7 +131,10 @@ final class OrderController extends Controller
         $order = Order::query()->findOrFail($orderId);
 
         if (!$order->is_in_process) {
-            throw new ConflictHttpException('The order is not in process.');
+            throw new HttpException(
+                Response::HTTP_CONFLICT,
+                'The order is not in process.',
+            );
         }
 
         // Theoretically, since we have all the ingredients, we should simply wait for the chefs to confirm that the
@@ -138,7 +147,11 @@ final class OrderController extends Controller
         try {
             $order->saveOrFail();
         } catch (Throwable $exception) {
-            throw new HttpException(500, 'The order could not be updated', $exception->getPrevious());
+            throw new HttpException(
+                Response::HTTP_INTERNAL_SERVER_ERROR,
+                'The order could not be updated.',
+                $exception->getPrevious(),
+            );
         }
 
         return $response->noContent();

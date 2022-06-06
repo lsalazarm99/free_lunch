@@ -9,6 +9,7 @@ use App\Models\RecipeIngredient;
 use App\Services\WarehouseService\WarehouseService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Client\RequestException;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Http;
 use RuntimeException;
 use Tests\TestCase;
@@ -36,7 +37,7 @@ final class WarehouseServiceTest extends TestCase
 
     public function testRequestIngredientsFails(): void
     {
-        Http::fake(static fn () => Http::response(null, 400));
+        Http::fake(static fn () => Http::response(null, Response::HTTP_BAD_REQUEST));
         $order = Order::where('is_in_process', '=', true)->firstOrFail();
 
         $this->expectException(RequestException::class);
