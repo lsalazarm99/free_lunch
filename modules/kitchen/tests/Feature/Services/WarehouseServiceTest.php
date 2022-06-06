@@ -19,7 +19,7 @@ use Tests\TestCase;
  *
  * @internal
  */
-class WarehouseServiceTest extends TestCase
+final class WarehouseServiceTest extends TestCase
 {
     use RefreshDatabase;
 
