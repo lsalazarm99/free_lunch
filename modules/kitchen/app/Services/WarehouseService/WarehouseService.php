@@ -8,11 +8,11 @@ use App\Models\Ingredient;
 use App\Models\Order;
 use App\Models\Recipe;
 use App\Models\RecipeIngredient;
+use App\Services\WarehouseService\Exceptions\RecipeHasNoIngredients;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
-use RuntimeException;
 
 class WarehouseService
 {
@@ -24,7 +24,7 @@ class WarehouseService
     }
 
     /**
-     * @throws RuntimeException
+     * @throws RecipeHasNoIngredients
      * @throws ModelNotFoundException
      * @throws RequestException
      */
@@ -39,7 +39,7 @@ class WarehouseService
         }
 
         if ($order->recipe->recipeIngredients->isEmpty()) {
-            throw new RuntimeException('The recipe of the order has no ingredients registered.');
+            throw new RecipeHasNoIngredients();
         }
 
         $nonexistentRecipeIngredients = $order->recipe->recipeIngredients

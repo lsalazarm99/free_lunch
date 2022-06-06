@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Models\Recipe;
+use App\Services\WarehouseService\Exceptions\RecipeHasNoIngredients;
 use App\Services\WarehouseService\WarehouseService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -105,7 +106,7 @@ final class OrderController extends Controller
 
         try {
             $warehouseService->requestIngredients($order);
-        } catch (RuntimeException|ModelNotFoundException $e) {
+        } catch (RecipeHasNoIngredients|ModelNotFoundException $e) {
             $order->setAsCancelled();
 
             throw new HttpException(
